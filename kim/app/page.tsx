@@ -3,10 +3,26 @@ import styles from './page.module.css'
 import { useState} from 'react';
 
 
+
+interface Members{
+  hash:string;
+  name:string;
+  content:string;
+}
+
+
+const memberData:Members[] = [
+  { hash: 'kim', name: '김우진', content: '김우진 소개' },
+  { hash: 'bang', name: '방승희', content: '방승희 소개' },
+  { hash: 'jung', name: '정영식', content: '정영식 소개' },
+  { hash: 'choi', name: '최성민', content: '최성민 소개' },
+];
+
+
 export default function Home() {
   const [section, setSection] = useState('');
 
-  const nameClick = (targetSection) => {
+  const nameClick = (targetSection:string) => {
     setSection(targetSection);
     window.location.hash = `#${targetSection}`;
   };
@@ -15,17 +31,17 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.head}>
         <ul>
-        <li onClick={() => nameClick('kim')}>김우진</li>
-          <li onClick={() => nameClick('bang')}>방승희</li>
-          <li onClick={() => nameClick('jung')}>정영식</li>
-          <li onClick={() => nameClick('choi')}>최성민</li>
+        {memberData.map(({ hash, name }) => (
+            <li key={hash} onClick={() => nameClick(hash)}>{name}</li>
+          ))}
         </ul>
       </div>
       <div className={styles.board}>
-        <div id="kim" style={{ display: section === 'kim' ? 'block' : 'none' }}>김우진 섹션</div>
-        <div id="bang" style={{ display: section === 'bang' ? 'block' : 'none' }}>방승희 섹션</div>
-        <div id="jung" style={{ display: section === 'jung' ? 'block' : 'none' }}>정영식 섹션</div>
-        <div id="choi" style={{ display: section === 'choi' ? 'block' : 'none' }}>최성민 섹션</div>
+      {memberData.map(({ hash, content }) => (
+          <div key={hash} id={hash} style={{ display: section === hash ? 'block' : 'none' }}>
+            {content}
+          </div>
+        ))}
       </div>
     </main>
   )

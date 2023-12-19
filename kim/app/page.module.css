@@ -13,6 +13,9 @@
   width:100vw;
   height:85vh;
   background-color: beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .head > ul {
